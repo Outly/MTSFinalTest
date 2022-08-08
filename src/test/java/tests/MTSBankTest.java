@@ -3,12 +3,14 @@ package tests;
 import org.junit.Test;
 import pages.DebitCardPage;
 import pages.HomePage;
-
-import static java.lang.Thread.sleep;
+import pages.ProductPage;
 
 public class MTSBankTest extends BaseTest {
 
     final String cardType = "дебетовая";
+    final String userName = "Тестов Тест Тестович";
+    final String phone = "900900";
+    final String email = "test@testex.ru";
 
 //    @Before
 //    public void someName() {
@@ -39,8 +41,8 @@ public class MTSBankTest extends BaseTest {
 //    4. Некорректно заполнить поле "Мобильный телефон"
 //    5. Корректно заполнить поле "Электронная почта"
 //    6. Проветить, что под полем "Мобильный телефон" появился текст "Введите верный номер телефона"
-//    @Test
-    public void incorrectPhoneMassageTest() throws InterruptedException {
+    @Test
+    public void incorrectPhoneMassageTest() {
         HomePage homePage = new HomePage();
         homePage.openPage()
                 .goToDebitCards();
@@ -48,7 +50,11 @@ public class MTSBankTest extends BaseTest {
         DebitCardPage debitCardPage = new DebitCardPage();
         debitCardPage.goToFirstProduct();
 
-        sleep(5000);
+        ProductPage productPage = new ProductPage();
+        productPage.sendUserName(userName)
+                   .sendPhone(phone)
+                   .sendEmail(email)
+                   .checkPhoneErrorMassage();
     }
 
 }
