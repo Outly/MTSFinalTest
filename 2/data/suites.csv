@@ -1,3 +1,0 @@
-"Status","Start Time","Stop Time","Duration in ms","Parent Suite","Suite","Sub Suite","Test Class","Test Method","Name","Description"
-"failed","Mon Aug 08 11:53:53 GMT 2022","Mon Aug 08 11:54:37 GMT 2022","43299","","tests.MTSBankTest","","tests.MTSBankTest","incorrectPhoneMassageTest","incorrectPhoneMassageTest",""
-"failed","Mon Aug 08 11:54:37 GMT 2022","Mon Aug 08 11:55:16 GMT 2022","39013","","tests.MTSBankTest","","tests.MTSBankTest","productNameTest","productNameTest",""
