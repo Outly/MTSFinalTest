@@ -2,6 +2,8 @@ package pages;
 
 import org.openqa.selenium.By;
 
+import java.time.Duration;
+
 import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.open;
@@ -18,7 +20,7 @@ public class HomePage {
     }
 
     public HomePage goToDebitCards() {
-        $(CARDS_LINK).shouldBe(visible).hover();
+        $(CARDS_LINK).shouldBe(visible, Duration.ofSeconds(15)).hover();
         $(DEBIT_CARD_LINK).shouldBe(visible).click();
         return this;
     }
