@@ -1,0 +1,6 @@
+pages\DebitCardPage.class
+pages\ProductPage.class
+tests\MTSBankTest.class
+config\ProjectConfig.class
+pages\HomePage.class
+tests\BaseTest.class

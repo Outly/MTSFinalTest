@@ -1,0 +1,40 @@
+name: Run MTSBank tests
+
+on:
+  push
+  
+jobs:
+  install_dependency:
+    runs-on: ubuntu-latest
+
+    steps:
+    
+    - name: "Скачиваем selenoid"
+      run: curl -s https://aerokube.com/cm/bash  | bash
+    - name: "Даём права на запуск selenoid"
+      run: chmod +x ./cm
+    - name: "Запускаем selenoid"
+      run: ./cm selenoid start --vnc
+    - name: "Запускаем selenoid-ui"
+      run: ./cm selenoid-ui start
+    - name: "Используем main репозиторий"
+      uses: actions/checkout@v1
+    - name: "Запускаем тесты"
+      run: mvn clean test
+      continue-on-error: true
+    - name: "Генерируем аллюр-репорт"
+      uses: simple-elf/allure-report-action@master
+      id: allure-report
+      with:
+          allure_results: target/allure-results
+          gh_pages: gh-pages
+          allure_report: target/allure-report
+          allure_history: target/allure-history
+
+    - name: "Пушим аллюр-репорт в ветку gh-pages"
+      uses: peaceiris/actions-gh-pages@v2
+      env:
+          PERSONAL_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          PUBLISH_BRANCH: gh-pages
+          PUBLISH_DIR: target/allure-history
+
