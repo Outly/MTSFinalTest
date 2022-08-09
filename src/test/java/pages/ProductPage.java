@@ -1,5 +1,6 @@
 package pages;
 
+import io.qameta.allure.Step;
 import org.openqa.selenium.By;
 
 import java.time.Duration;
@@ -15,6 +16,7 @@ public class ProductPage {
     private final By EMAIL_INPUT = By.cssSelector("input[type='email']");
     private final By PHONE_ERROR_MASSAGE = By.cssSelector(".Wrapper-sc-1vydk7-0.OlnRe.HelperText-sc-jsokzo-0.hByJHf");
 
+    @Step("Заполнить поле 'Фамилия, имя и отчество' корректно")
     public ProductPage sendUserName(String userName) {
         $(USER_NAME_INPUT).shouldHave(visible, Duration.ofSeconds(15))
                           .scrollTo()
@@ -22,6 +24,7 @@ public class ProductPage {
         return this;
     }
 
+    @Step("Заполнить поле 'Мобильный телефон' некорректно (короче, чем требуется)")
     public ProductPage sendPhone(String phone) {
         $(PHONE_INPUT).shouldHave(visible, Duration.ofSeconds(15))
                 .scrollTo()
@@ -29,6 +32,7 @@ public class ProductPage {
         return this;
     }
 
+    @Step("Заполнить поле 'Электронная почта'")
     public ProductPage sendEmail(String email) {
         $(EMAIL_INPUT).shouldHave(visible, Duration.ofSeconds(15))
                 .scrollTo()
@@ -36,6 +40,7 @@ public class ProductPage {
         return this;
     }
 
+    @Step("Проветить, что под полем 'Мобильный телефон' есть сообщение с текстом 'Введите верный номер телефона'")
     public ProductPage checkPhoneErrorMassage() {
         $(PHONE_ERROR_MASSAGE).shouldBe(visible).shouldHave(text("Введите верный номер телефона"));
         return this;

@@ -1,5 +1,8 @@
 package tests;
 
+import io.qameta.allure.Description;
+import io.qameta.allure.Owner;
+import io.qameta.allure.junit4.DisplayName;
 import org.junit.Test;
 import pages.DebitCardPage;
 import pages.HomePage;
@@ -26,6 +29,9 @@ public class MTSBankTest extends BaseTest {
 //    1. На сайте https://www.mtsbank.ru/ выбрать раздел "карты" и нажать в появившемся меню "дебетовые карты"
 //    2. Проверить, что в названиях всех предложенных продуктов содержится слово "дебетовая"
     @Test
+    @Owner("Долженко Артём")
+    @Description("На странице с дебетовыми картами выполняется проверка того, что все названия карт содержат слово 'дебетовая'.")
+    @DisplayName("Проверка имён дебетовых карт")
     public void productNameTest() {
         HomePage homePage = new HomePage();
         homePage.openPage()
@@ -42,6 +48,10 @@ public class MTSBankTest extends BaseTest {
 //    5. Корректно заполнить поле "Электронная почта"
 //    6. Проветить, что под полем "Мобильный телефон" появился текст "Введите верный номер телефона"
     @Test
+    @Owner("Долженко Артём")
+    @Description("На странице дебетовой карты проверяется вывод сообщения 'Введите верный номер телефона' " +
+            "при некорректном вводе номера телефона.")
+    @DisplayName("Некорректный ввод номера телефона при оформлении дебетовой карты")
     public void incorrectPhoneMassageTest() {
         HomePage homePage = new HomePage();
         homePage.openPage()
