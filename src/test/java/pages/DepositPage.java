@@ -45,6 +45,11 @@ public class DepositPage {
     @Step("Проверить доход по счету")
     public DepositPage depositProfitCheck(int initialInvestment, int monthlyReplenishment, int accumulationPeriod) {
 
+        $(PROFIT).shouldNotBe(text($(PROFIT).getText()));
+        String actualProfit = $(PROFIT).shouldBe(visible)
+                .scrollTo().getText().replace(" ", "");
+        int actualProfitInt = Integer.parseInt(actualProfit.substring(0, actualProfit.length() - 1));
+
         double currentProfit = 0;
         double currentInvestment = initialInvestment;
         for (int i = 0; i < accumulationPeriod; i++) {
@@ -57,11 +62,7 @@ public class DepositPage {
             }
         int expectedProfit = (int) Math.ceil(currentProfit);
 
-        $(PROFIT).shouldNotBe(text($(PROFIT).getText()));
-        String actualProfit = $(PROFIT).shouldBe(visible)
-                .scrollTo().getText().replace(" ", "");
-        int actualProfitInt = Integer.parseInt(actualProfit.substring(0, actualProfit.length() - 1)) ;
-        Assert.assertEquals(actualProfitInt, expectedProfit);
+        Assert.assertEquals(expectedProfit, actualProfitInt);
         return this;
     }
 }

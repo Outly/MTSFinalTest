@@ -84,7 +84,7 @@ public class MTSBankTest extends BaseTest {
     @Description("На странице вклада заполняются поля, необходимые для работы онлайн-калкулятора, " +
             "проверяется корректность работы онлайн-калькулятора и вывод 'Дохода по счету'")
     @DisplayName("Проверка работы онлайн-калькулятора вклада")
-    public void depositIncomeTest() {
+    public void depositIncomeTest() throws InterruptedException {
         HomePage homePage = new HomePage();
         homePage.openPage()
                 .goToDeposit();
@@ -95,6 +95,7 @@ public class MTSBankTest extends BaseTest {
                    .sendAccumulationPeriod(accumulationPeriod)
                    .depositProfitCheck(initialInvestment, monthlyReplenishment, accumulationPeriod);
 
+//        Thread.sleep(5000);
     }
 
 }
