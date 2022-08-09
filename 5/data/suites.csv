@@ -1,3 +1,0 @@
-"Status","Start Time","Stop Time","Duration in ms","Parent Suite","Suite","Sub Suite","Test Class","Test Method","Name","Description"
-"passed","Tue Aug 09 04:55:28 GMT 2022","Tue Aug 09 04:56:12 GMT 2022","43605","","tests.MTSBankTest","","tests.MTSBankTest","productNameTest","Проверка имён дебетовых карт","На странице с дебетовыми картами выполняется проверка того, что все названия карт содержат слово 'дебетовая'."
-"passed","Tue Aug 09 04:54:38 GMT 2022","Tue Aug 09 04:55:28 GMT 2022","49610","","tests.MTSBankTest","","tests.MTSBankTest","incorrectPhoneMassageTest","Некорректный ввод номера телефона при оформлении дебетовой карты","На странице дебетовой карты проверяется вывод сообщения 'Введите верный номер телефона' при некорректном вводе номера телефона."
