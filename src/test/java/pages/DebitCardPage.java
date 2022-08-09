@@ -5,31 +5,44 @@ import org.openqa.selenium.By;
 
 import java.time.Duration;
 
-import static com.codeborne.selenide.CollectionCondition.sizeGreaterThan;
+import static com.codeborne.selenide.Condition.text;
 import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Selenide.$;
-import static com.codeborne.selenide.Selenide.$$;
 
 public class DebitCardPage {
 
-    private final By CARD_NAMES = By.cssSelector("a h4");
-    private final By TAKE_CARD_BUTTON = By.cssSelector(".Wrapper-sc-6nwvzq-0.fDVIhN");
-    private final By DEBIT_CARD_HEADING = By.cssSelector(".Wrapper-sc-6nwvzq-0.jcdBAB");
+    private final By USER_NAME_INPUT = By.cssSelector("div[class='TextareaWrapper-sc-1ux9qvi-0 bUIboz'] textarea");
+    private final By PHONE_INPUT = By.cssSelector("input[type='tel']");
+    private final By EMAIL_INPUT = By.cssSelector("input[type='email']");
+    private final By PHONE_ERROR_MASSAGE = By.cssSelector(".Wrapper-sc-1vydk7-0.OlnRe.HelperText-sc-jsokzo-0.hByJHf");
 
-    @Step("Проверить, что все названия карт содержат слово 'дебетовая'")
-    public DebitCardPage checkCardNames(String cardType) {
-//        $(DEBIT_CARD_HEADING).shouldBe(visible, Duration.ofSeconds(10));
-        $$(CARD_NAMES).shouldBe(sizeGreaterThan(0), Duration.ofSeconds(60)).stream().forEach(x -> x.getText().contains(cardType));
+    @Step("Заполнить поле 'Фамилия, имя и отчество' корректно")
+    public DebitCardPage sendUserName(String userName) {
+        $(USER_NAME_INPUT).shouldHave(visible, Duration.ofSeconds(15))
+                          .scrollTo()
+                          .sendKeys(userName);
         return this;
     }
 
-    @Step("Открыть страницу первой из списка дебетовой карты")
-    public DebitCardPage goToFirstProduct() {
-//        $(DEBIT_CARD_HEADING).shouldBe(visible, Duration.ofSeconds(10));
-        $$(TAKE_CARD_BUTTON).shouldBe(sizeGreaterThan(0), Duration.ofSeconds(60))
-                            .first()
-                            .shouldBe(visible)
-                            .click();
+    @Step("Заполнить поле 'Мобильный телефон' некорректно (короче, чем требуется)")
+    public DebitCardPage sendPhone(String phone) {
+        $(PHONE_INPUT).shouldHave(visible, Duration.ofSeconds(15))
+                .scrollTo()
+                .sendKeys(phone);
+        return this;
+    }
+
+    @Step("Заполнить поле 'Электронная почта'")
+    public DebitCardPage sendEmail(String email) {
+        $(EMAIL_INPUT).shouldHave(visible, Duration.ofSeconds(15))
+                .scrollTo()
+                .sendKeys(email);
+        return this;
+    }
+
+    @Step("Проветить, что под полем 'Мобильный телефон' есть сообщение с текстом 'Введите верный номер телефона'")
+    public DebitCardPage checkPhoneErrorMassage() {
+        $(PHONE_ERROR_MASSAGE).shouldBe(visible).shouldHave(text("Введите верный номер телефона"));
         return this;
     }
 }

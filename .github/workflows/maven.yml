@@ -4,25 +4,25 @@ on:
   push
   
 jobs:
-  install_dependency:
+  run_tests:
     runs-on: ubuntu-latest
 
     steps:
     
-    - name: "Скачиваем selenoid"
+    - name: "Скачивание selenoid"
       run: curl -s https://aerokube.com/cm/bash  | bash
-    - name: "Даём права на запуск selenoid"
+    - name: "Расширение прав на запуск selenoid"
       run: chmod +x ./cm
-    - name: "Запускаем selenoid"
+    - name: "Запуск selenoid"
       run: ./cm selenoid start --vnc
-    - name: "Запускаем selenoid-ui"
+    - name: "Запуск selenoid-ui"
       run: ./cm selenoid-ui start
-    - name: "Используем main репозиторий"
+    - name: "Использование main репозитория"
       uses: actions/checkout@v1
-    - name: "Запускаем тесты"
+    - name: "Запуск тестов"
       run: mvn clean test
       continue-on-error: true
-    - name: "Генерируем аллюр-репорт"
+    - name: "Генерация allure report"
       uses: simple-elf/allure-report-action@master
       id: allure-report
       with:
@@ -31,7 +31,7 @@ jobs:
           allure_report: target/allure-report
           allure_history: target/allure-history
 
-    - name: "Пушим аллюр-репорт в ветку gh-pages"
+    - name: "Создание ветки gh-pages содержащей allure report"
       uses: peaceiris/actions-gh-pages@v2
       env:
           PERSONAL_TOKEN: ${{ secrets.GITHUB_TOKEN }}

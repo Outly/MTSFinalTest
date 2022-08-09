@@ -4,9 +4,10 @@ import io.qameta.allure.Description;
 import io.qameta.allure.Owner;
 import io.qameta.allure.junit4.DisplayName;
 import org.junit.Test;
-import pages.DebitCardPage;
+import pages.DebitCardsPage;
+import pages.DepositPage;
 import pages.HomePage;
-import pages.ProductPage;
+import pages.DebitCardPage;
 
 public class MTSBankTest extends BaseTest {
 
@@ -14,6 +15,11 @@ public class MTSBankTest extends BaseTest {
     final String userName = "Тестов Тест Тестович";
     final String phone = "900900";
     final String email = "test@testex.ru";
+
+    final int initialInvestment = 500000;
+    final int monthlyReplenishment = 10000;
+    final int accumulationPeriod = 2;
+
 
 //    @Before
 //    public void someName() {
@@ -37,8 +43,8 @@ public class MTSBankTest extends BaseTest {
         homePage.openPage()
                 .goToDebitCards();
 
-        DebitCardPage debitCardPage = new DebitCardPage();
-        debitCardPage.checkCardNames(cardType);
+        DebitCardsPage debitCardsPage = new DebitCardsPage();
+        debitCardsPage.checkCardNames(cardType);
     }
 
 //    1. На сайте https://www.mtsbank.ru/ выбрать раздел "карты" и нажать в появившемся меню "дебетовые карты"
@@ -57,14 +63,38 @@ public class MTSBankTest extends BaseTest {
         homePage.openPage()
                 .goToDebitCards();
 
-        DebitCardPage debitCardPage = new DebitCardPage();
-        debitCardPage.goToFirstProduct();
+        DebitCardsPage debitCardsPage = new DebitCardsPage();
+        debitCardsPage.goToFirstDebitCard();
 
-        ProductPage productPage = new ProductPage();
-        productPage.sendUserName(userName)
+        DebitCardPage debitCardPage = new DebitCardPage();
+        debitCardPage.sendUserName(userName)
                    .sendPhone(phone)
                    .sendEmail(email)
                    .checkPhoneErrorMassage();
+    }
+
+//    1. На сайте https://www.mtsbank.ru/ выбрать раздел "вклады и счета" и нажать в появившемся меню "Накопительный МТС Счет до 7%"
+//    2. Корректно заполнить поле 'Первоначальное вложение'
+//    3. Корректно заполнить поле 'Ежемесячное пополнение'
+//    4. Корректно заполнить поле 'Срок накопления'
+//    5. Корректно заполнить поле "Электронная почта"
+//    6. Проветить, что калькулятор сайта корректно отображает 'Доход по счёту'
+    @Test
+    @Owner("Долженко Артём")
+    @Description("На странице вклада заполняются поля, необходимые для работы онлайн-калкулятора, " +
+            "проверяется корректность работы онлайн-калькулятора и вывод 'Дохода по счету'")
+    @DisplayName("Проверка работы онлайн-калькулятора вклада")
+    public void depositIncomeTest() {
+        HomePage homePage = new HomePage();
+        homePage.openPage()
+                .goToDeposit();
+
+        DepositPage depositPage = new DepositPage();
+        depositPage.sendInitialInvestment(initialInvestment)
+                   .sendMonthlyReplenishment(monthlyReplenishment)
+                   .sendAccumulationPeriod(accumulationPeriod)
+                   .depositProfitCheck(initialInvestment, monthlyReplenishment, accumulationPeriod);
+
     }
 
 }

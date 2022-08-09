@@ -2,8 +2,10 @@ package tests;
 
 import com.codeborne.selenide.Configuration;
 import com.codeborne.selenide.Selenide;
+import com.codeborne.selenide.logevents.SelenideLogger;
 import config.ProjectConfig;
 import io.github.bonigarcia.wdm.WebDriverManager;
+import io.qameta.allure.selenide.AllureSelenide;
 import org.aeonbits.owner.ConfigFactory;
 import org.junit.After;
 import org.junit.Before;
@@ -22,6 +24,7 @@ public abstract class BaseTest {
 //        Configuration.driverManagerEnabled = true;
 //        Configuration.headless = false;
 //        Configuration.browserSize = "1920x1080";
+//        SelenideLogger.addListener("AllureSelenide", new AllureSelenide().screenshots(true));
 
         // Настройки для локального запуска в Docker
 //        Configuration.browser = "chrome";
@@ -47,6 +50,7 @@ public abstract class BaseTest {
         capabilities.setCapability("enableVNC", true);
         capabilities.setCapability("enableVideo", true);
         Configuration.browserCapabilities = capabilities;
+        SelenideLogger.addListener("AllureSelenide", new AllureSelenide().screenshots(true));
 
     }
 
