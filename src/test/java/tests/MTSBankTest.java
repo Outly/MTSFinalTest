@@ -117,7 +117,7 @@ public class MTSBankTest extends BaseTest {
     @Owner("Долженко Артём")
     @Description("На главной странице сайта в разделе 'Помощь клиентам' нажимаем 'Тарифы и документы', " +
             "скачивается документ по имени, проверяется, что документ содержит текст")
-    @DisplayName("Проверка кнопки со ссылкой на Telegram")
+    @DisplayName("Проверка скачивания и содержимого документа")
     public void downloadDocumentTest() {
         HomePage homePage = new HomePage();
         homePage.openPage()
