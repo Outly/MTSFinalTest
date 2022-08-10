@@ -1,8 +1,7 @@
 package pages;
 
-import com.codeborne.selenide.Condition;
+import com.codeborne.selenide.Selenide;
 import io.qameta.allure.Step;
-import org.junit.Assert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 
@@ -10,6 +9,7 @@ import java.time.Duration;
 
 import static com.codeborne.selenide.Condition.*;
 import static com.codeborne.selenide.Selenide.$;
+import static org.junit.Assert.assertTrue;
 
 public class DepositPage {
 
@@ -46,6 +46,7 @@ public class DepositPage {
     public DepositPage depositProfitCheck(int initialInvestment, int monthlyReplenishment, int accumulationPeriod) {
 
         $(PROFIT).shouldNotBe(text($(PROFIT).getText()));
+        Selenide.sleep(3000);
         String actualProfit = $(PROFIT).shouldBe(visible)
                 .scrollTo().getText().replace(" ", "");
         int actualProfitInt = Integer.parseInt(actualProfit.substring(0, actualProfit.length() - 1));
@@ -53,16 +54,18 @@ public class DepositPage {
         double currentProfit = 0;
         double currentInvestment = initialInvestment;
         for (int i = 0; i < accumulationPeriod; i++) {
-            if (currentInvestment < 1000000)
+            if (currentInvestment <= 1000000)
                 currentProfit = currentProfit + currentInvestment * 0.07 / 12;
+
             else {
-                currentProfit = currentProfit + currentInvestment * 0.03 / 12;
+                currentProfit = currentProfit + ((currentInvestment - 1000000) * 0.03 + 1000000 * 0.07) / 12;
             }
                 currentInvestment = currentInvestment + currentProfit + monthlyReplenishment;
             }
+        System.out.println(currentProfit);
         int expectedProfit = (int) Math.ceil(currentProfit);
 
-        Assert.assertEquals(expectedProfit, actualProfitInt);
+        assertTrue(expectedProfit - actualProfitInt <= 1);
         return this;
     }
 }

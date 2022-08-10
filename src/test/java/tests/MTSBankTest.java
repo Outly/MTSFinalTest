@@ -10,29 +10,11 @@ import static com.codeborne.selenide.Selenide.switchTo;
 
 public class MTSBankTest extends BaseTest {
 
-    final String cardType = "дебетовая";
-    final String userName = "Тестов Тест Тестович";
-    final String phone = "900900";
-    final String email = "test@testex.ru";
-
-    final int initialInvestment = 500000;
-    final int monthlyReplenishment = 10000;
-    final int accumulationPeriod = 2;
-
-
-//    @Before
-//    public void someName() {
-//        HomePage homePage = new HomePage();
-//        homePage.openPage()
-//                .sendDestination(destinationTown)
-//                .sendCheckInCheckOutDates(checkIn, checkOut)
-//                .sendGuestsAndRooms(adultCount, childrenCount, roomCount)
-//                .searchBoxButtonClick();
-//    }
-
-
 //    1. На сайте https://www.mtsbank.ru/ выбрать раздел "карты" и нажать в появившемся меню "дебетовые карты"
 //    2. Проверить, что в названиях всех предложенных продуктов содержится слово "дебетовая"
+
+    final String cardType = "дебетовая";
+
     @Test
     @Owner("Долженко Артём")
     @Description("На странице с дебетовыми картами выполняется проверка того, что все названия карт содержат слово 'дебетовая'.")
@@ -52,6 +34,11 @@ public class MTSBankTest extends BaseTest {
 //    4. Некорректно заполнить поле "Мобильный телефон"
 //    5. Корректно заполнить поле "Электронная почта"
 //    6. Проветить, что под полем "Мобильный телефон" появился текст "Введите верный номер телефона"
+
+    final String userName = "Тестов Тест Тестович";
+    final String phone = "900900";
+    final String email = "test@testex.ru";
+
     @Test
     @Owner("Долженко Артём")
     @Description("На странице дебетовой карты проверяется вывод сообщения 'Введите верный номер телефона' " +
@@ -78,6 +65,11 @@ public class MTSBankTest extends BaseTest {
 //    4. Корректно заполнить поле 'Срок накопления'
 //    5. Корректно заполнить поле "Электронная почта"
 //    6. Проветить, что калькулятор сайта корректно отображает 'Доход по счёту'
+
+    final int initialInvestment = 1100000;
+    final int monthlyReplenishment = 10000;
+    final int accumulationPeriod = 2;
+
     @Test
     @Owner("Долженко Артём")
     @Description("На странице вклада заполняются поля, необходимые для работы онлайн-калкулятора, " +
@@ -112,5 +104,26 @@ public class MTSBankTest extends BaseTest {
         TelegramPage telegramPage = new TelegramPage();
         telegramPage.checkTelegramChatButton()
                         .checkChatName();
+    }
+
+//    1. На главной странице сайта https://www.mtsbank.ru/ в разделе "Помощь клинтам" нажать "Тарифы и документы"
+//    2. Найти документ по имени documentName и скачать
+//    3. Проверить, что скачанный файл содержит необходимый текст documentContent
+
+    final String documentName = "Условия предоставления сервиса по переводу денежных средств с использованием номера мобильного телефона";
+    final String documentContent = "Условия предоставления сервиса по переводу денежных средств с использованием номера мобильного телефона";
+
+    @Test
+    @Owner("Долженко Артём")
+    @Description("На главной странице сайта в разделе 'Помощь клиентам' нажимаем 'Тарифы и документы', " +
+            "скачивается документ по имени, проверяется, что документ содержит текст")
+    @DisplayName("Проверка кнопки со ссылкой на Telegram")
+    public void downloadDocumentTest() {
+        HomePage homePage = new HomePage();
+        homePage.openPage()
+                .goToDocuments();
+
+        DocsPage docsPage = new DocsPage();
+        docsPage.downloadAndCheckDocument(documentName, documentContent);
     }
 }
