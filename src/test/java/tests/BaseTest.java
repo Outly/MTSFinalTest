@@ -19,12 +19,12 @@ public abstract class BaseTest {
     public void setUp() {
 
         // Настройки для локального запуска
-        WebDriverManager.chromedriver().setup();
-        Configuration.browser = "chrome";
-        Configuration.driverManagerEnabled = true;
-        Configuration.headless = false;
-        Configuration.browserSize = "1920x1080";
-        SelenideLogger.addListener("AllureSelenide", new AllureSelenide().screenshots(true));
+//        WebDriverManager.chromedriver().setup();
+//        Configuration.browser = "chrome";
+//        Configuration.driverManagerEnabled = true;
+//        Configuration.headless = false;
+//        Configuration.browserSize = "1920x1080";
+//        SelenideLogger.addListener("AllureSelenide", new AllureSelenide().screenshots(true));
 
         // Настройки для локального запуска в Docker
 //        Configuration.browser = "chrome";
@@ -43,14 +43,14 @@ public abstract class BaseTest {
 //        Configuration.browserCapabilities = capabilities;
 
         //  Настройки для запуска в Github Actions
-//        Configuration.browser = "chrome";
-//        Configuration.browserSize = "1920x1080";
-//        Configuration.remote = "http://localhost:4444/wd/hub";
-//        DesiredCapabilities capabilities = new DesiredCapabilities();
-//        capabilities.setCapability("enableVNC", true);
-//        capabilities.setCapability("enableVideo", true);
-//        Configuration.browserCapabilities = capabilities;
-//        SelenideLogger.addListener("AllureSelenide", new AllureSelenide().screenshots(true));
+        Configuration.browser = "chrome";
+        Configuration.browserSize = "1920x1080";
+        Configuration.remote = "http://localhost:4444/wd/hub";
+        DesiredCapabilities capabilities = new DesiredCapabilities();
+        capabilities.setCapability("enableVNC", true);
+        capabilities.setCapability("enableVideo", true);
+        Configuration.browserCapabilities = capabilities;
+        SelenideLogger.addListener("AllureSelenide", new AllureSelenide().screenshots(true));
 
     }
 
