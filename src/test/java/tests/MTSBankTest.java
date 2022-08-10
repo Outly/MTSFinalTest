@@ -4,10 +4,9 @@ import io.qameta.allure.Description;
 import io.qameta.allure.Owner;
 import io.qameta.allure.junit4.DisplayName;
 import org.junit.Test;
-import pages.DebitCardsPage;
-import pages.DepositPage;
-import pages.HomePage;
-import pages.DebitCardPage;
+import pages.*;
+
+import static com.codeborne.selenide.Selenide.switchTo;
 
 public class MTSBankTest extends BaseTest {
 
@@ -73,7 +72,7 @@ public class MTSBankTest extends BaseTest {
                    .checkPhoneErrorMassage();
     }
 
-//    1. На сайте https://www.mtsbank.ru/ выбрать раздел "вклады и счета" и нажать в появившемся меню "Накопительный МТС Счет до 7%"
+//    1. На главной странице сайта https://www.mtsbank.ru/ выбрать раздел "вклады и счета" и нажать в появившемся меню "Накопительный МТС Счет до 7%"
 //    2. Корректно заполнить поле 'Первоначальное вложение'
 //    3. Корректно заполнить поле 'Ежемесячное пополнение'
 //    4. Корректно заполнить поле 'Срок накопления'
@@ -84,7 +83,7 @@ public class MTSBankTest extends BaseTest {
     @Description("На странице вклада заполняются поля, необходимые для работы онлайн-калкулятора, " +
             "проверяется корректность работы онлайн-калькулятора и вывод 'Дохода по счету'")
     @DisplayName("Проверка работы онлайн-калькулятора вклада")
-    public void depositIncomeTest() throws InterruptedException {
+    public void depositIncomeTest() {
         HomePage homePage = new HomePage();
         homePage.openPage()
                 .goToDeposit();
@@ -94,8 +93,24 @@ public class MTSBankTest extends BaseTest {
                    .sendMonthlyReplenishment(monthlyReplenishment)
                    .sendAccumulationPeriod(accumulationPeriod)
                    .depositProfitCheck(initialInvestment, monthlyReplenishment, accumulationPeriod);
-
-//        Thread.sleep(5000);
     }
 
+//    1. На главной странице сайта https://www.mtsbank.ru/ нажать кнопку выбора соцсети "Телеграмм"
+//    2. Проверить, что открывается страница чата МТС Банка в Telegram
+    @Test
+    @Owner("Долженко Артём")
+    @Description("На главной странице сайта нажимается кнопка соцсети 'Telegram', " +
+            "проверяется открытие страницы чата МТС Банка в 'Telegram'")
+    @DisplayName("Проверка кнопки со ссылкой на Telegram")
+    public void telegramLinkTest() {
+        HomePage homePage = new HomePage();
+        homePage.openPage()
+                .goToTelegram();
+
+        switchTo().window(1);
+
+        TelegramPage telegramPage = new TelegramPage();
+        telegramPage.checkTelegramChatButton()
+                        .checkChatName();
+    }
 }

@@ -16,6 +16,7 @@ public class HomePage {
     private final By DEPOSIT_LINK = By.cssSelector("a[href='/chastnim-licam/vkladi/']");
     private final By DEBIT_CARD_LINK = By.cssSelector("a[href='/chastnim-licam/karti/all/debet/']");
     private final By MTS_DEPOSIT_7PER_LINK = By.cssSelector("a[href='/chastnim-licam/vkladi/mts-schet/']");
+    private final By TELEGRAM_LINK = By.cssSelector("a[href='https://t.me/mts_bank_official'] svg");
 
     @Step("Открыть домашнюю страницу")
     public HomePage openPage() {
@@ -37,4 +38,9 @@ public class HomePage {
         return this;
     }
 
+    @Step("Нажать кнопку соцсети telegram")
+    public HomePage goToTelegram() {
+        $(TELEGRAM_LINK).shouldBe(visible).click();
+        return this;
+    }
 }
