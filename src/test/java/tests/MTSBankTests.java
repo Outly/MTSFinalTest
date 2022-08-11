@@ -2,13 +2,15 @@ package tests;
 
 import io.qameta.allure.Description;
 import io.qameta.allure.Owner;
+import io.qameta.allure.Severity;
+import io.qameta.allure.SeverityLevel;
 import io.qameta.allure.junit4.DisplayName;
 import org.junit.Test;
 import pages.*;
 
 import static com.codeborne.selenide.Selenide.switchTo;
 
-public class MTSBankTest extends BaseTest {
+public class MTSBankTests extends BaseTest {
 
 //    1. На сайте https://www.mtsbank.ru/ выбрать раздел "карты" и нажать в появившемся меню "дебетовые карты"
 //    2. Проверить, что в названиях всех предложенных продуктов содержится слово "дебетовая"
@@ -19,6 +21,7 @@ public class MTSBankTest extends BaseTest {
     @Owner("Долженко Артём")
     @Description("На странице с дебетовыми картами выполняется проверка того, что все названия карт содержат слово 'дебетовая'.")
     @DisplayName("Проверка имён дебетовых карт")
+    @Severity(value = SeverityLevel.MINOR)
     public void productNameTest() {
         HomePage homePage = new HomePage();
         homePage.openPage()
@@ -44,6 +47,7 @@ public class MTSBankTest extends BaseTest {
     @Description("На странице дебетовой карты проверяется вывод сообщения 'Введите верный номер телефона' " +
             "при некорректном вводе номера телефона.")
     @DisplayName("Некорректный ввод номера телефона при оформлении дебетовой карты")
+    @Severity(value = SeverityLevel.NORMAL)
     public void incorrectPhoneMassageTest() {
         HomePage homePage = new HomePage();
         homePage.openPage()
@@ -75,6 +79,7 @@ public class MTSBankTest extends BaseTest {
     @Description("На странице вклада заполняются поля, необходимые для работы онлайн-калкулятора, " +
             "проверяется корректность работы онлайн-калькулятора и вывод 'Дохода по счету'")
     @DisplayName("Проверка работы онлайн-калькулятора вклада")
+    @Severity(value = SeverityLevel.MINOR)
     public void depositIncomeTest() {
         HomePage homePage = new HomePage();
         homePage.openPage()
@@ -94,6 +99,7 @@ public class MTSBankTest extends BaseTest {
     @Description("На главной странице сайта нажимается кнопка соцсети 'Telegram', " +
             "проверяется открытие страницы чата МТС Банка в 'Telegram'")
     @DisplayName("Проверка кнопки со ссылкой на Telegram")
+    @Severity(value = SeverityLevel.TRIVIAL)
     public void telegramLinkTest() {
         HomePage homePage = new HomePage();
         homePage.openPage()
@@ -118,6 +124,7 @@ public class MTSBankTest extends BaseTest {
     @Description("На главной странице сайта в разделе 'Помощь клиентам' нажимаем 'Тарифы и документы', " +
             "скачивается документ по имени, проверяется, что документ содержит текст")
     @DisplayName("Проверка скачивания и содержимого документа")
+    @Severity(value = SeverityLevel.MINOR)
     public void downloadDocumentTest() {
         HomePage homePage = new HomePage();
         homePage.openPage()
